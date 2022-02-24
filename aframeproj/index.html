@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+a<html>
+    <head>
+        <title>Ridiculous Dream</title>
+        
+        <!-- Dependencies -->
+        <script src="https://aframe.io/releases/1.3.0/aframe.min.js"></script>
+        <script src="https://unpkg.com/aframe-event-set-component@5.0.0/dist/aframe-event-set-component.min.js"></script>
+        <script src="https://unpkg.com/aframe-particle-system-component@1.1.3/dist/aframe-particle-system-component.min.js"></script>
+        <script src="https://unpkg.com/aframe-animation-component@5.1.2/dist/aframe-animation-component.min.js"></script>
+        <script src="https://recast-api.donmccurdy.com/aframe-inspector-plugin-recast.js"></script>
+        
+        <!-- Script -->
+        <script>
+            AFRAME.registerComponent('stop', {
+                init: function() {
+                    this.el.addEventListener('click', function() {
+                        var musicEl = document.querySelector('a-sky');
+                        musicEl.components.sound.stopSound();
+                    });
+                }
+            });
+        </script>
+        
+    </head>
+    <body>
+        
+        <!-- Create scene -->
+        <a-scene background="color:black;" inspector-plugin-recast>
+            
+            <!-- Preload assets -->
+            <a-assets>
+                <img id="sky" src="images/skybox.jpg"/>
+                <img id="hiring" src="images/nowhiring.jpg"/>
+                <img id="nowork1" src="images/noonewantstowork1.jpg"/>
+                <img id="nowork2" src="images/noonewantstowork2.jpg"/>
+                <img id="wholepaycheck" src="images/wholepaychekmarket.png"/>
+                <img id="flooring" src="images/tileflooring.jpg"/>
+                <audio id="localforecast" src="audio/localforecastlq.mp3"></audio>
+                <audio id="bezosii" src="audio/bezos2.mp3"></audio>
+                <audio id="rant1" src="audio/rant1.mp3"></audio>
+                <audio id="rant2" src="audio/rant2.mp3"></audio>
+                <audio id="rant3" src="audio/rant3.mp3"></audio>
+                <audio id="rant4" src="audio/rant4.mp3"></audio>
+                <audio id="rant5" src="audio/rant5.mp3"></audio>
+                <audio id="rant6" src="audio/rant6.mp3"></audio>
+                <a-asset-item id="basket-o" src="assets/basket.obj"></a-asset-item>
+                <a-asset-item id="basket-m" src="assets/basket.mtl"></a-asset-item>
+                <a-asset-item id="bezos" src="assets/bezos.gltf"></a-asset-item>
+            </a-assets>
+            
+            <!-- Environmental elements -->
+            <a-sky src="#sky" theta-length="90" radius="100" rotation="0 50 0"
+                   sound="src: #localforecast; volume: 0.2; autoplay: true; loop: true; positional: false"></a-sky>a
+            <a-cylinder id="ground" radius="102" height="0.1" color="#333333"></a-cylinder>
+            
+            <!-- Camera and attachments -->
+            <a-entity position="0 0 50">
+                <a-camera wasd-controls="acceleration: 30;">
+                    <a-cursor id="cursor"
+                        animation__click="property: scale; startEvents: click; from: 0.1 0.1 0.1; to: 1 1 1; dur: 150"
+                        event-set__mouseenter="_event: mouseenter; color: #FF0000"
+                        event-set__mouseleave="_event: mouseleave; color: #000000"
+                        raycaster="objects: .interactive"></a-cursor>
+                    <a-entity obj-model="obj: #basket-o; mtl: #basket-m" scale="0.4 0.4 0.4" position="-0.4 -1 -0.5" rotation="0 -30 0"></a-entity>
+                </a-camera>
+            </a-entity>
+            
+            <!-- Supermarket model -->
+            
+            <!-- Static Objects -->
+            <a-plane src="#hiring" position="0 1.5 45" width="1" height="1.25" rotation="0 0 -3"></a-plane>
+            <!-- Interactive objects -->
+            <a-plane id="noworksign" class="interactive" src="#nowork1" position="1.1 1.6 45" color="#EEEEEE" width="1" height="1.25" rotation="0 0 2"
+                event-set__mouseenter="color: #8FF3FF; scale: 1.1 1.1 1.1"
+                event-set__mouseleave="color: #EEEEEE; scale: 1 1 1"
+                event-set__click="src: #nowork2"
+                sound="src: #rant1; on: click; volume: 1.5; distanceModel: linear; maxDistance: 10"></a-plane>
+            <a-sphere id="cabbage" class="interactive" visible="true" color="green" radius="0.3" position="-20 1 20"
+                event-set__mouseenter="color: #8FF3FF; scale: 1.1 1.1 1.1"
+                event-set__mouseleave="color: green; scale: 1 1 1"
+                event-set__click="visible: false;"
+                sound="src: #rant2; on: click; volume: 1.5; distanceModel: linear; maxDistance: 10"></a-sphere>
+            <a-sphere id="apple" class="interactive" visible="true" color="#FF0000" radius="0.15" position="-25 1 0"
+                event-set__mouseenter="color: #8FF3FF; scale: 1.1 1.1 1.1"
+                event-set__mouseleave="color: #FF0000; scale: 1 1 1"
+                event-set__click="visible: false;"
+                sound="src: #rant3; on: click; volume: 1.5; distanceModel: linear; maxDistance: 10"></a-sphere>
+            <a-cylinder id="can" class="interactive" visible="true" radius="0.2" height="0.5" color="#888888" position="0 1.7 -25"
+                event-set__mouseenter="color: #8FF3FF; scale: 1.1 1.1 1.1"
+                event-set__mouseleave="color: #888888; scale: 1 1 1"
+                event-set__click="visible: false;"
+                sound="src: #rant4; on: click; volume: 1.5; distanceModel: linear; maxDistance: 10"></a-cylinder>
+            <a-box id="cereal" class="interactive" visible="true" color="#FFAA00" height="0.7" width="0.5" depth="0.2" position="20 2.5 -10" rotation="0 -45 0"
+                event-set__mouseenter="color: #8FF3FF; scale: 1.1 1.1 1.1"
+                event-set__mouseleave="color: #FFAA00; scale: 1 1 1"
+                event-set__click="visible: false;"
+                sound="src: #rant5; on: click; volume: 1.5; distanceModel: linear; maxDistance: 10"></a-box>
+            <a-box id="milk" class="interactive" visible="true" height="0.6" width="0.3" depth="0.3" position="20 1.3 15"
+                event-set__mouseenter="color: #8FF3FF; scale: 1.1 1.1 1.1"
+                event-set__mouseleave="color: #FFFFFF; scale: 1 1 1"
+                event-set__click="visible: false;"
+                sound="src: #rant6; on: click; volume: 1.5; distanceModel: linear; maxDistance: 10"></a-box>
+            <a-entity position="40 1 40" rotation="0 -120 0">
+                <a-entity gltf-model="#bezos" class="interactive" scale="3 3 3" stop sound="src: #bezosii; on: click; volume: 0.2; loop: true; positional: false;"></a-entity>
+                <a-cylinder position="0 -2.5 0" scale="0.7 5 0.7" color="#111111"></a-cylinder>
+                <a-entity position="0 -2 -15" rotation="0 0 180" particle-system="color: #EF0000,#44CC00"></a-entity>
+            </a-entity>
+            
+            
+        </a-scene>
+        
+    </body>
+</html>
